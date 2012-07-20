@@ -22,6 +22,10 @@ gem 'debugger'
 gem 'nexmo'
 gem "gmaps4rails"
 
+gem "heroku"
+gem "pg"
+gem "thin"
+
 # Use unicorn as the web server
 # gem 'unicorn'
 
