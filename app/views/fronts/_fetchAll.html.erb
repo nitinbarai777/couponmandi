@@ -1,0 +1,180 @@
+
+<%#= debugger(@o_all) %>
+		<script src="/javascripts/common.js?1342171392" type="text/javascript"></script>
+	  <div class="successmsg">
+		<% if flash[:success_msg] %>
+			<div id="notice"><%= flash[:success_msg] %></div>
+		<% end %>
+		<% if flash[:flash_notice] %>
+			<div id="notice"><%= flash[:flash_notice] %></div>
+		<% end %>
+	  </div>
+	  <div id="header_msg"></div>
+	  <div id="msg_coupon"></div>	
+
+
+
+<div class="citybox">
+        <div class="city_filter">
+        	<ul>
+			<% City.all.each do |c| %>
+                <li><%= link_to c.name, coupon_filter_path(c.id), :remote => true %></li>
+			<% end%>
+            </ul>
+        </div>
+
+
+		<% if !@o_all_areas.blank? %>
+        <div class="area_filter">
+        	<ul>
+				<% @o_all_areas.each do |c| %>
+    	            <li><%= link_to c.name, coupon_filter_area_path(c.id), :remote => true %></li>
+				<% end%>
+            </ul>
+        </div>
+		<% end %>
+</div>
+
+<div class="main-containt">
+
+
+    	<div class="row-fluid">
+        	<div class="span12">
+
+				<section id="layout">
+					<% if session[:user_id].nil? %>
+						<%= render 'signin' %>
+					<% end %>
+
+
+				<% @tmp_cnt = 0 %>
+				<% @tmp_odd = 1 %>
+
+				
+				<% @o_all.each do |row| %>
+					<% if @tmp_cnt % 3 == 0 %>
+						<div class="row-fluid posRel">
+					<% end -%>
+					<% @v = (@tmp_odd == 1) ? 'first' : ((@tmp_odd == 2) ? 'second' : 'third') %>
+					
+
+					<div class="span4" id="<%= @v %>_<%= row.id.to_i %>">
+						<div class="row-fluid">
+							<div class="categoryBox hero-unit">
+                            
+								<div class="boxdetail">
+									<% if row.image? %>
+										<%= image_tag row.image_url(:thumb) %>
+									<% else %>
+										<%= image_tag "cupon-logo.jpg" %>
+									<% end %>                                
+                                </div>
+                                 <div class="boxdetail-title titlebg1">
+                                <h4><%= row.name %></h4>
+                                <div class="discount">
+                                <span><%= row.price %>% Discount</span><br />
+Monday To Saturday</div>
+                                <ul class="nav-list">
+									<li class="expandCatBox readMore plus"><a title="View Coupon" id="<%= @v %>_<%= row.id.to_i %>">
+										<%#= t("general.view_coupon") %>
+									</a> </li>
+								</ul>
+                                </div>
+                                
+							</div>
+						</div>
+					</div>
+				<% if @v == 'first'%>
+					<div style="display:none;z-index:1;position:absolute;margin-left:0;left:0px;" class="span4" id="first_detailed_<%= row.id.to_i %>">
+				<% elsif @v == 'second' %>
+					<div style="z-index: 1; position: absolute; width: 20%; margin-left: 335px; display: none;left:0px;" class="span4" id="second_detailed_<%= row.id.to_i %>">
+				<% else %>
+					<div style="display:none;z-index:1;position:absolute; right:0px;" class="span4" id="third_detailed_<%= row.id.to_i %>">
+				<% end %>
+						<div class="row-fluid">
+							<div class="span12">
+									<div class="categoryBox hero-unit expandBox">
+                                    <div class="expandtext">
+											<div class="expand-one">
+				                                <div class="fimg">
+						                            <strong>Flat <%= row.price %> % off on Total Bill Value</strong><br />
+													<% if row.image? %>
+														<%= image_tag row.image_url(:thumb), :width => 100, :height => 70 %>
+													<% else %>
+														<%= image_tag "cupon-logo.jpg", :width => 100, :height => 70 %>
+													<% end %>                                        
+				                                </div>
+		                                    </div>
+		                                    <div class="expand-two">
+				                                <div class="line">
+							                            Coupon Available For :
+							                            <span>Monday To Saturday</span>
+					                                <div class="cl"></div>
+				                                </div>
+												<div class="cupontext">                 
+		                                         	<span>Name:</span> 
+													<%= row.name %>
+												</div>
+												<% unless row.valid_from.nil? %>
+												<div class="cupontext">                 
+		                                         	<span>Valid:</span> 
+													From <%= row.valid_from %> To <%= row.valid_to %>
+												</div>
+												<% end %>		
+
+				                                <div class="cupontext">
+					                                <span>Address:</span> 
+													<%= row.merchant_location.address.html_safe %>
+												 </div>
+				                                
+												<!--<div class="cupontext">
+					                                <strong>Highlights:</strong>
+													<%#= row.highlights.html_safe %>
+				                                </div>-->
+		                                        
+												<div class="cupontext">
+				                    	            <span>Term & Conditions:</span>
+													<%= row.term_conditions.html_safe %> 
+				                                </div>
+
+												<ul id="keywordList_<%= row.id.to_i %>" class="nav-list">
+													<li class="readMore minus">
+														<a id="<%= @v %>_<%= row.id.to_i %>" title="Close"><%= image_tag "close.png" %></a>
+													</li>
+												</ul>
+			                                    <div class="getcupon">
+				                                    <div class="getbtn">
+												<% if session[:user_id].nil? %>
+													<%= link_to '', "#_", :onclick => 'alert("Please Sign In to get coupon..!!!")' %>
+												<% else %>
+													<div class="getcupon_load">
+													<%= link_to '', get_coupon_path(row.id.to_i), :remote => true, :id => "id_get_coupon" %>
+													</div>
+												<% end %>	
+													</div>
+			                                    </div>
+		                                    </div>
+                                    	</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					<% @tmp_cnt = @tmp_cnt + 1 %>
+					<% @tmp_odd = @tmp_odd + 1 %>
+					<% if @tmp_odd == 3 %>
+						<% @tmp_odd = 0 %>
+					<% end %>
+				<% if @tmp_cnt % 3 == 0 && @tmp_cnt != 1 %>
+					</div>
+				<% end -%>
+				<% end %>
+					<div style="display:none;" class="loaddetail" id="load"><%= image_tag "loading.gif" %></div>
+
+				    <div id="favListContent" class="favorite-list"></div>
+				</section>
+		    </div>
+		</div>
+<%= will_paginate @o_all %>
+
+</div>

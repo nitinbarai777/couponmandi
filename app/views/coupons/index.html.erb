@@ -1,0 +1,18 @@
+<h3><%= Merchant.find(session[:merchant_id].to_i).name %>'s <%= t("general.coupons") %></b>:  <%= MerchantLocation.find(session[:merchant_location_id].to_i).city.name %> -> <%= MerchantLocation.find(session[:merchant_location_id].to_i).area.name %></h3>
+
+<%= form_tag coupons_path, :method => 'get', :id => "div_update_search" do %>
+  <p>
+    <%= t("general.search") %>: <%= text_field_tag :search, params[:search] %>
+    <%#= submit_tag t("general.search"), :name => nil %>
+  </p>
+  <div id="div_update"><%= render 'fetchAll' %></div>
+<% end %>
+
+<div class="btn">
+	<%= link_to t("general.Add"), new_coupon_path %>
+</div>
+<div class="btn">
+	<%= link_to t("general.back"), merchant_locations_path %>
+</div>
+
+<div class="cl"></div>

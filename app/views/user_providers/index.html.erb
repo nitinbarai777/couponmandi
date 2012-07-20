@@ -1,0 +1,9 @@
+<h3><%= t("general.facebook_users") %></h3>
+
+<%= form_tag user_providers_path, :method => 'get', :id => "div_update_search" do %>
+  <p>
+    Search: <%= text_field_tag :search, params[:search] %>
+    <%#= submit_tag "Search", :name => nil %>
+  </p>
+  <div id="div_update"><%= render 'users' %></div>
+<% end %>

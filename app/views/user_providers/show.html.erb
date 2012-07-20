@@ -1,0 +1,19 @@
+<% title "user" %>
+
+<p>
+  <strong>Username:</strong>
+  <%= @user.username %>
+</p>
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+<p>
+  <strong>Mobile:</strong>
+  <%= @user.mobile_number %>
+</p>
+
+<p>
+  <%= link_to "Destroy", @user, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", user_providers_path %>
+</p>

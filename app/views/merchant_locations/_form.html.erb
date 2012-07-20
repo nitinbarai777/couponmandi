@@ -1,0 +1,73 @@
+<div class="editablebox">
+<%= form_for @o_single do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.hidden_field :merchant_id, :value => session[:merchant_id] %>
+    <%= f.label :city_id %>
+    <%= f.select :city_id, options_for_select(["select city"] + City.all.map { |c| [c.name, c.id] },@o_single.city_id)  %>
+  </p>
+<div id="div_update_area">
+  <p>
+    <%= f.label :area_id %>
+	<% if @o_all_area.blank? %>
+	    <%= f.select :area_id, options_for_select(["select area"], @o_single.area_id)  %>
+	<% else %>
+	    <%= f.select :area_id, options_for_select(["select area"] + @o_all_area.map { |c| [c.name, c.id] }, @o_single.area_id)  %>
+	<% end %>
+  </p>
+</div>
+
+  <p>
+    <%= f.label :category_id %>
+    <%= f.select :category_id, options_for_select(Category.all.map { |c| [c.name, c.id] }, @o_single.category_id)  %>
+  </p>
+
+  <p>
+    <%= f.label :contact_person %>
+    <%= f.text_field :contact_person %>
+  </p>
+
+  <p>
+    <%= f.label :contact %>
+    <%= f.text_field :contact %>
+  </p>
+
+  <p>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </p>
+
+  <p>
+    <%= f.label :address %>
+    <%= f.text_area :address %>
+  </p>
+
+  <p>
+    <%= f.label :latitude %>
+    <%= f.text_field :latitude %>
+  </p>
+
+  <p>
+    <%= f.label :longitude %>
+    <%= f.text_field :longitude %>
+  </p>
+
+
+  <p><%= f.submit :value => t("general.save") %>
+<div class="btn"><%= link_to t("general.back"), merchant_locations_path %></div>
+</p>
+<% end %>
+
+<div class="cl"></div>
+</div>
+<script type="text/javascript">
+        jQuery(document).ready(function() 
+		{
+			$('#merchant_location_city_id').change(function() {
+
+				var snCityId = jQuery('#merchant_location_city_id').val();
+				callAjaxRequest(snCityId,'/getArea','div_update_area')
+			});
+		});
+</script>
+

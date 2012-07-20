@@ -1,0 +1,9 @@
+<h3><%= t("general.get_coupons") %></h3>
+
+<%= form_tag user_coupons_path, :method => 'get', :id => "div_update_search" do %>
+  <p>
+    <%= t("general.search") %>: <%= text_field_tag :search, params[:search] %>
+    <%#= submit_tag t("general.search"), :name => nil %>
+  </p>
+  <div id="div_update"><%= render 'fetchAll' %></div>
+<% end %>
