@@ -6,8 +6,7 @@ gem 'rails', '3.2.6'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 gem 'authlogic'
 gem 'webget_ruby_secure_random'
-gem 'sqlite3'
-gem 'mysql2'
+
 gem 'nifty-generators'
 #gem 'will_paginate', '3.0.pre2'
 gem "will_paginate", :git => "https://github.com/p7r/will_paginate.git", :branch => "rails3"
@@ -22,9 +21,16 @@ gem 'debugger'
 gem 'nexmo'
 gem "gmaps4rails"
 
-gem "heroku"
-gem "pg"
-gem "thin"
+group :production do
+	gem "heroku"
+	gem "pg"
+	gem "thin"
+end
+
+group :development do
+	gem 'sqlite3'
+	gem 'mysql2'
+end
 
 # Use unicorn as the web server
 # gem 'unicorn'
