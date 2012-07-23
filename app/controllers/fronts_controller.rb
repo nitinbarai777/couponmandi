@@ -184,7 +184,8 @@ class FrontsController < ApplicationController
 	else
 		session[:user_provider_id] = nil
 	    session[:user_provider] = nil
-		base_url = 'http://156.ajax.ntn/'
+		#base_url = 'http://156.ajax.ntn/'
+		base_url = 'http://couponmandi.herokuapp.com/'
 		redirect_to "https://www.facebook.com/logout.php?access_token=" + session[:fb_token] + "&next=#{base_url}"
 	end
   end
