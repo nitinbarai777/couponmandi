@@ -87,8 +87,9 @@
 <% if current_user.is_admin == 1 %>
   <div class="field">
   <div class="checkbox">
-    <%= f.label :is_admin %>
-    <%= f.check_box :is_admin %>
+    <%= f.label 'User Role' %>
+    <%#= f.check_box :is_admin %>
+	<%= f.select :is_admin, options_for_select([["Select Role", ""], ["Admin", 1], ["Merchant", 2], ["User", 3]], @user.is_admin)  %>
     </div>
   </div>
 <% end %>
