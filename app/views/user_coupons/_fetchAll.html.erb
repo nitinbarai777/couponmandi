@@ -12,7 +12,13 @@
   <% for o_row in @o_all %>
     <tr>
       <td><%= o_row.message_status %></td>
-      <td><%= o_row.provider == 'facebook' ? o_row.user_provider.username : o_row.user.username %></td>
+      <td>
+		<% if o_row.provider == 'facebook' && !o_row.user_provider.blank? %>
+			<%= o_row.user_provider.username %>
+		<% elsif !o_row.user.blank? %>		
+		    <%= o_row.user.username %>
+		<% end %>
+	  </td>
       <td><%= o_row.coupon.name %></td>
       <td><%= o_row.provider %></td>
       <td><%= o_row.created_at %></td>
