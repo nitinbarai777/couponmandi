@@ -17,7 +17,7 @@
   <%# end %>
 -->
   <div class="field">
-    <%= f.hidden_field :is_admin, :value => 0 %>
+    <%= f.hidden_field :is_admin, :value => 3 %>
     <%= f.label :first_name %>
     <%= f.text_field :first_name %>
 	<span><% if @user.errors[:first_name].any? %>

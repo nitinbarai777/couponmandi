@@ -43,8 +43,12 @@ class UserSessionsController < ApplicationController
     respond_to do |format|
       if @user_session.save
 		session[:user_id] = current_user.id
+		session[:is_admin] = current_user.is_admin
 		if current_user.is_admin == 1
 	        format.html { redirect_to(:users, :notice => t("common.login_successful")) }
+    	    format.xml { render :xml => @user_session, :status => :created, :location => @user_session }
+		elsif current_user.is_admin == 2
+	        format.html { redirect_to(:merchants, :notice => t("common.login_successful")) }
     	    format.xml { render :xml => @user_session, :status => :created, :location => @user_session }
 		else
 	        format.html { redirect_to(:fronts, :notice => t("common.login_successful")) }

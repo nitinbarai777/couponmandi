@@ -1,10 +1,10 @@
 class MerchantsController < ApplicationController
   helper_method :sort_column, :sort_direction
-  before_filter :require_admin
+  before_filter :require_merchant
 
   # fetch all records
   def index
-    @o_all = Merchant.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 10, :page => params[:page])
+    @o_all = Merchant.search(params[:search], session[:is_admin].to_i, current_user.id.to_i).order(sort_column + " " + sort_direction).paginate(:per_page => 10, :page => params[:page])
   end
   
   #fetch single record and display

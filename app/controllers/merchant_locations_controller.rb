@@ -1,6 +1,6 @@
 class MerchantLocationsController < ApplicationController
   helper_method :sort_column, :sort_direction
-  before_filter :require_admin
+  before_filter :require_merchant
 
   # fetch all records
   def index

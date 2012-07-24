@@ -103,7 +103,9 @@
   <div class="actions">
     <%= f.submit :Save %>
 <!-- <div class="btn"> <%#= link_to "Show", @user %> </div>-->
+<% if session[:is_admin] == 1 %>
   <div class="btn"><%= link_to "View All", users_path %></div>
+<% end %>
   </div>
 <% end %>
 

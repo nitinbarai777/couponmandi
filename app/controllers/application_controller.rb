@@ -20,10 +20,19 @@ class ApplicationController < ActionController::Base
     end
   end
   def require_admin
-    if current_user.is_admin != 1
+    if current_user.is_admin == 3
         redirect_to :controller => "fronts", :action => "index"
-      end
+	elsif current_user.is_admin == 2
+		redirect_to :controller => "merchants", :action => "index"
+    end
   end
+
+  def require_merchant
+    if current_user.is_admin == 3
+        redirect_to :controller => "fronts", :action => "index"
+    end
+  end
+
   def authenticate_password(email)
       user_exists = User.exists?(email: email)
       if user_exists

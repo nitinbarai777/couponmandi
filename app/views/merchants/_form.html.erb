@@ -2,6 +2,12 @@
 <div class="admintextbox-leftpart ">
 <%= form_for @o_single do |f| %>
   <%= f.error_messages %>
+
+  <p>
+    <%= f.label 'Admin' %>
+    <%= f.select :user_id, options_for_select([["Select Admin", ""]] + User.where(:is_admin => 2).map { |c| [c.username, c.id] }, @o_single.user_id)  %>
+  </p>
+
   <p>
     <%= f.label :name %>
     <%= f.text_field :name %>

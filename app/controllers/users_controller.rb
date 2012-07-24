@@ -35,8 +35,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update_attributes(params[:user])
       flash[:notice] = t("general.successfully_updated")
-	  if current_user.is_admin == 1	
+	  if current_user.is_admin == 1
       	redirect_to users_path
+	  elsif current_user.is_admin == 2
+      	redirect_to merchants_path		
 	  else
 		redirect_to fronts_path
 	  end		

@@ -1,14 +1,23 @@
 class Merchant < ActiveRecord::Base
   mount_uploader :image, ImageUploader
-  attr_accessible :email, :image, :name, :url
+  attr_accessible :email, :image, :name, :url, :user_id
   has_many :merchant_location, :dependent => :destroy
 
 
-  def self.search(search)
+  def self.search(search, is_admin, userId)
     if search
-      where('name LIKE ? OR email LIKE ? OR url LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%")
+	 if is_admin == 1
+     	where('name LIKE ? OR email LIKE ? OR url LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%")
+	 else
+     	where('((name LIKE ? OR email LIKE ? OR url LIKE ?) AND user_id = ?)', "%#{search}%", "%#{search}%", "%#{search}%", userId)
+	 end
     else
-      scoped
+	 if is_admin == 1
+		scoped
+	 else
+		where('user_id = ?', userId)
+	 end
+     	
     end
   end
 

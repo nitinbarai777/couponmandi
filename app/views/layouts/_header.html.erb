@@ -13,21 +13,30 @@
       </ul>
     </nav>
 
-    <nav class="menu">
-      <ul>
+
 		 <% if !session[:user_id].nil? %>
-		    <li><%= link_to t("general.users"), users_path %></li>
-			<li><%= link_to t("general.facebook_users"), user_providers_path %></li>
-		    <li><%= link_to t("general.gateways"), gateways_path %></li>
-		    <li><%= link_to t("general.carriers"), carriers_path %></li>
-		    <li><%= link_to t("general.categories"), categories_path %></li>
-		    <li><%= link_to t("general.coupon_types"), coupontypes_path %></li>
-		    <li><%= link_to t("general.cities"), cities_path %></li>
-		    <li><%= link_to t("general.areas"), areas_path %></li>
-		    <li><%= link_to t("general.merchants"), merchants_path %></li>
-		    <li><%= link_to t("general.get_coupons"), user_coupons_path %></li>
+			 <% if session[:is_admin] == 1 %>
+    		<nav class="menu">
+		      <ul>
+				<li><%= link_to t("general.users"), users_path %></li>
+				<li><%= link_to t("general.facebook_users"), user_providers_path %></li>
+				<li><%= link_to t("general.gateways"), gateways_path %></li>
+				<li><%= link_to t("general.carriers"), carriers_path %></li>
+				<li><%= link_to t("general.categories"), categories_path %></li>
+				<li><%= link_to t("general.coupon_types"), coupontypes_path %></li>
+				<li><%= link_to t("general.cities"), cities_path %></li>
+				<li><%= link_to t("general.areas"), areas_path %></li>
+				<li><%= link_to t("general.merchants"), merchants_path %></li>
+				<li><%= link_to t("general.get_coupons"), user_coupons_path %></li>
+      		  </ul>
+		    </nav>
+			<% else %>
+    		<nav class="menu" style="margin-top:70px;">
+		      <ul>
+				<li><%= link_to t("general.merchants"), merchants_path %></li>
+      		  </ul>
+		    </nav>
+			<% end %>
 		<% end %>
-      </ul>
-    </nav>
 <br />
 </header>
