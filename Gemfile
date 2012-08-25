@@ -20,6 +20,9 @@ gem 'omniauth-facebook'
 gem 'debugger'
 gem 'nexmo'
 gem "gmaps4rails"
+group :development, :test do
+  gem 'rspec-rails', '~> 2.0'
+end
 
 group :production do
 	gem "heroku"

@@ -1,0 +1,73 @@
+					<div class="row-fluid">
+						<div class="span8">
+							<div class="row-fluid hero-unit cmsbanner mHeight">
+
+									<h3>It's Easy! It's Quick! It's Free! </h3>
+                         <div class="registerbtn">
+							<%= link_to image_tag("register-btn.png"), new_front_path %>
+		          		</div>
+						<div class="cupon_img">
+							<%= image_tag "cupon-img.jpg" %>                            
+						</div>
+							
+                                    
+				    	  	</div>
+						</div>
+
+						<div class="span4" id="newsList">
+							<div class="row-fluid">
+								<div class="newsEventBox hero-unit" style="margin-right:0;">
+									<h2>
+										<div class="row-fluid">
+											<div class="span12">SIGN IN</div>
+										</div>
+									</h2>
+										<div class="errormsg">
+											<% if flash[:error_login] %>
+												<div id="notice"><%= flash[:error_login] %></div>
+											<% end %>
+
+                                          </div>
+
+
+											<%= form_for(@user_session, :url => fronts_signin_path) do |f| %>
+											  <% if @user_session.errors.any? %>
+												<div id="error_explanation">
+												  <ul>
+												  <% @user_session.errors.full_messages.each do |msg| %>
+													<li><%= msg %></li>
+												  <% end %>
+												  </ul>
+												</div>
+											  <% end %>
+
+											  <div class="field">
+												<%= f.label :username %>
+												<%= f.text_field :username %>
+											  </div>
+											  <div class="field">
+												<%= f.label :password %>
+												<%= f.password_field :password %>
+											  </div>
+                                              <div class="rembox"><input type="checkbox" name="checkbox" id="checkbox" />Rember Me
+                                              <span><%= link_to "Forgot password?", forgot_password_path %></span>
+                                              </div>
+											  <div class="actions">
+												<%= f.submit :Login %>
+                                                <div class="fblogin">
+                                                <%= link_to image_tag("facebook-share.png"), "/auth/facebook" %>
+
+                                                </div>
+											  </div>
+                                              <!--<div class="morebtn">
+                                              	<div class="whitebtn"><a href="#">How it works?</a></div>
+                                                <div class="whitebtn"><%= link_to "Sign Up", new_front_path%></div>
+                                              <div class="cl"></div>
+                                              </div>-->
+											<% end %>
+
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="clearb"></div>
