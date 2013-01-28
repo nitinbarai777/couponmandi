@@ -1,7 +1,7 @@
 class UserMailer < ActionMailer::Base
   default :from => "ryan@railscasts.com"
   
-  def registration_confirmation(user, body)
+  def registration_confirmation(user, body="")
     @user = user
     mail(:to => "#{user.username} <#{user.email}>", :subject => "CouponMandi::New registration", :body => body, :content_type => "text/html")
   end

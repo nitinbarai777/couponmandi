@@ -18,7 +18,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
-	  UserMailer.registration_confirmation(@user).deliver
+			body = t("general.successfully_created")
+			UserMailer.registration_confirmation(@user, body).deliver
       flash[:notice] = t("general.successfully_created")
       #redirect_to @user
 	  redirect_to :controller => "user_sessions", :action => "new"
